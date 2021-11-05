@@ -20,7 +20,6 @@ public class Application {
             DefaultTerminalFactory terminalFactory = new
                     DefaultTerminalFactory()
                     .setInitialTerminalSize(terminalSize);
-            terminal = terminalFactory.createTerminal();
             screen.clear();
             screen.setCharacter(10, 10,
                     TextCharacter.fromCharacter('X')[0]);
