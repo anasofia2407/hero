@@ -13,7 +13,7 @@ public class Game {
     public Game() throws IOException {
         Terminal terminal = new
                 DefaultTerminalFactory().createTerminal();
-        Screen screen = new TerminalScreen(terminal);
+        screen = new TerminalScreen(terminal);
         screen.setCursorPosition(null);
         screen.startScreen();
         screen.doResizeIfNecessary();
