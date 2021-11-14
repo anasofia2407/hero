@@ -4,21 +4,24 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Arena {
     private int width;
     private int height;
     Hero hero = new Hero(10, 10);
     private List<Wall> walls;
+    private List<Coin> coins;
+
     public Arena(int width,int height){
         this.width=width;
         this.height=height;
         this.walls=createWalls();
+        this.coins=createCoins();
     }
 
     private List<Wall> createWalls() {
@@ -34,6 +37,14 @@ public class Arena {
         return walls;
     }
 
+    private List<Coin> createCoins() {
+        Random random = new Random();
+        ArrayList<Coin> coins = new ArrayList<>();
+        for (int i = 0; i < 5; i++)
+            coins.add(new Coin(random.nextInt(width - 2) +
+                    1, random.nextInt(height - 2) + 1));
+        return coins;
+    }
 
     public void draw(TextGraphics graphics){
         graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
@@ -41,6 +52,20 @@ public class Arena {
         for (Wall wall : walls)
             wall.draw(graphics);
         hero.draw(graphics);
+        for (Coin coin : coins){
+            boolean i=true;
+            for (Wall wall : walls) {
+                if (coin.getPosition() == wall.getPosition())
+                    i = false;
+            }
+            if (coin.getPosition()== hero.getPosition())
+                i=false;
+            if(i)
+                coin.draw(graphics);
+        }
+
+    }
+    private void retrieveCoins(Position position){
 
     }
     private boolean canHeroMove(Position position){
