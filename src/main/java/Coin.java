@@ -11,7 +11,8 @@ public class Coin extends Element{
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(super.getPosition().getX(), super.getPosition().getY()), "*");
-
-
+    }
+    public Position getPosition() {
+        return super.getPosition() ;
     }
 }

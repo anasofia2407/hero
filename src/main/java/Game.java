@@ -1,4 +1,5 @@
 
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -37,8 +38,10 @@ public class Game {
 
     public void run(){
         try {
-            while (true) {
-
+            while (!arena.isGameOver()) {
+                arena.verifyMonstersCollisions();
+                if (arena.isGameOver())
+                    break;
                 draw();
                 KeyStroke key = screen.readInput();
                 processKey(key);
@@ -48,8 +51,14 @@ public class Game {
                 if (key.getKeyType()==KeyType.EOF){
                     break;
                 }
-
+                arena.verifyMonstersCollisions();
+                draw();
             }
+            System.out.println("GAME OVER");
+            KeyStroke key = screen.readInput();
+            screen.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
